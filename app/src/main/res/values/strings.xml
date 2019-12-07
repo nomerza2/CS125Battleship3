@@ -3,4 +3,14 @@
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <item type="id" name="SHIP_HERE"/>
+    <item type="id" name="SHIP_0"/>
+    <item type="id" name="SHIP_1"/>
+    <item type="id" name="SHIP_2"/>
+    <item type="id" name="SHIP_3"/>
+    <item type="id" name="SHIP_4"/>
+    <item type="id" name="VACANT"/>
+    <item type="id" name="MY_ROW"/>
+    <item type="id" name="MY_COLUMN"/>
+    <item type="id" name="GHOST_SHIP"/>
 </resources>

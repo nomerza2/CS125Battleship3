@@ -52,119 +52,351 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView2"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Attacking" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <androidx.gridlayout.widget.GridLayout
-                android:id="@+id/offenseGrid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:columnCount="5"
-                app:rowCount="5">
+                <androidx.gridlayout.widget.GridLayout
+                    android:id="@+id/offenseGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:columnCount="9"
+                    app:rowCount="9">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
-            </androidx.gridlayout.widget.GridLayout>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+                </androidx.gridlayout.widget.GridLayout>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="40sp"
+                    android:text="GEOFF" />
+
+            </LinearLayout>
 
 
             <LinearLayout
@@ -176,135 +408,397 @@
                     android:id="@+id/Ship0"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
-                    android:text="Ship 0" />
+                    android:text="Prarie Learn" />
 
                 <Button
                     android:id="@+id/Ship1"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
-                    android:text="Ship 1" />
+                    android:text="Coders" />
 
                 <Button
                     android:id="@+id/Ship2"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
-                    android:text="Ship 2" />
+                    android:text="Foelinger" />
+                <Button
+                    android:id="@+id/Ship3"
+                    android:layout_width="137dp"
+                    android:layout_height="wrap_content"
+                    android:text="CBTF" />
+                <Button
+                    android:id="@+id/Ship4"
+                    android:layout_width="137dp"
+                    android:layout_height="wrap_content"
+                    android:text="MP" />
+
+                <RadioGroup
+                    android:id="@+id/orientationGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/horizontalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Horizontal" />
+
+                    <RadioButton
+                        android:id="@+id/verticalButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Vertical" />
+                </RadioGroup>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/textView"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Your Ships" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <androidx.gridlayout.widget.GridLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/defenseGrid"
-                app:columnCount="5"
-                app:rowCount="5">
+                <androidx.gridlayout.widget.GridLayout
+                    android:id="@+id/defenseGrid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:columnCount="9"
+                    app:rowCount="9">
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"></androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
 
-            </androidx.gridlayout.widget.GridLayout>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="57dp"
+                        android:layout_height="57dp"></androidx.cardview.widget.CardView>
+
+                </androidx.gridlayout.widget.GridLayout>
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="40sp"
+                    android:text="USER" />
+            </LinearLayout>
 
         </LinearLayout>
     </FrameLayout>

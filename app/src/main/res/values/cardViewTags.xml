@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources><integer
+    name="SHIP_HERE"
+    >37</integer>
+    <integer
+        name="SHIP_0"
+        >45</integer>
+    <integer
+        name="SHIP_1"
+        >47</integer>
+    <integer
+        name="SHIP_2"
+        >459</integer>
+    <integer
+        name="SHIP_3"
+        >452</integer>
+    <integer
+        name="SHIP_4"
+        >45000</integer>
+    <integer
+        name="VACANT"
+        >-5</integer>
+</resources>

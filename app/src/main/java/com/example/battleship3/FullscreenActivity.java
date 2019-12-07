@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 
 import androidx.gridlayout.widget.GridLayout;
 
@@ -70,6 +71,7 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     };
     private boolean mVisible;
+    private Battleship[] fleet = new Battleship[5];
     private final Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
@@ -109,7 +111,6 @@ public class FullscreenActivity extends AppCompatActivity {
                 toggle();
             }
         });
-
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
         // while interacting with the UI.
@@ -117,7 +118,8 @@ public class FullscreenActivity extends AppCompatActivity {
         dummyButton.setOnTouchListener(mDelayHideTouchListener);
         final GridLayout offenseGrid = findViewById(R.id.offenseGrid);
         final GridLayout defenseGrid = findViewById(R.id.defenseGrid);
-        Button[] ships = {(Button) findViewById(R.id.Ship0), (Button) findViewById(R.id.Ship1), (Button) findViewById(R.id.Ship2)};
+        Button[] ships = {(Button) findViewById(R.id.Ship0), (Button) findViewById(R.id.Ship1),
+                (Button) findViewById(R.id.Ship2), (Button) findViewById(R.id.Ship3), (Button) findViewById(R.id.Ship4)};
         for (final Button ship : ships) {
             ship.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -133,6 +135,19 @@ public class FullscreenActivity extends AppCompatActivity {
                 startAttacking(offenseGrid);
             }
         });
+        int columnCount = defenseGrid.getColumnCount();
+        int thisRow = 0;
+        int thisColumn = 0;
+        for (int i = 0; i < defenseGrid.getChildCount(); i++) {
+            defenseGrid.getChildAt(i).setTag(R.id.SHIP_HERE, R.id.VACANT);
+            defenseGrid.getChildAt(i).setTag(R.id.MY_ROW, thisRow);
+            defenseGrid.getChildAt(i).setTag(R.id.MY_COLUMN, thisColumn);
+            thisColumn++;
+            if (thisColumn == columnCount) {
+                thisColumn = 0;
+                thisRow++;
+            }
+        }
     }
 
     private void startAttacking(GridLayout offenseGrid) {
@@ -154,29 +169,90 @@ public class FullscreenActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     if (setupPhase) {
-                        int previousIndex;
-                        if (ship.getTag() == null) {
-                            previousIndex = -1;
-                        } else {
-                            previousIndex = (Integer) ship.getTag();
+                        System.out.println(k);
+                        RadioGroup orientation = (RadioGroup) findViewById(R.id.orientationGroup);
+                        int orientationID = orientation.getCheckedRadioButtonId();
+                        if (orientationID == -1) {
+                            return;
                         }
                         int color;
-                        if (previousIndex >= 0) {
-                            ((CardView) defenseGrid.getChildAt(previousIndex)).setCardBackgroundColor(Color.rgb(255, 255, 255));
-                        }
+                        int size;
+                        int shipVal;
                         if (ship.equals(findViewById(R.id.Ship1))) {
                             color = Color.rgb(255, 0, 0);
+                            size = 3;
+                            shipVal = R.id.SHIP_1;
                         } else if (ship.equals(findViewById(R.id.Ship2))) {
                             color = Color.rgb(0, 255, 0);
+                            size = 3;
+                            shipVal = R.id.SHIP_2;
+                        } else if (ship.equals(findViewById(R.id.Ship3))) {
+                            color = Color.rgb(255, 0, 255);
+                            size = 4;
+                            shipVal = R.id.SHIP_3;
+                        } else if (ship.equals(findViewById(R.id.Ship4))) {
+                            color = Color.rgb(0, 255, 255);
+                            size = 5;
+                            shipVal = R.id.SHIP_4;
                         } else {
                             color = Color.rgb(0, 0, 255);
+                            size = 2;
+                            shipVal = R.id.SHIP_0;
                         }
-                        ship.setTag(k);
-                        cell.setCardBackgroundColor(color);
+                        if (!checkSpace(k, size, orientationID, defenseGrid)) { //quit if you outta room
+                            return;
+                        }
+                        int[] cells = new int[size];
+                        int childiteration;
+                        if (orientationID == R.id.horizontalButton) {
+                            childiteration = 1;
+                        } else {
+                            childiteration = defenseGrid.getColumnCount();
+                        }
+                        for (int i = 0; i < size; i++) {
+                            int currentCellIndex = k + (i * childiteration);
+                            cells[i] = currentCellIndex;
+                            defenseGrid.getChildAt(currentCellIndex).setBackgroundColor(color);
+                            defenseGrid.getChildAt(currentCellIndex).setTag(R.id.SHIP_HERE, shipVal);
+                        }
+                        int[] previousCells;
+                        if (ship.getTag() == null) {
+                            previousCells = new int[0];
+                        } else {
+                            previousCells = (int[]) ship.getTag();
+                        }
+                        if (previousCells.length > 0) { //Maybe find a way to take care of this earlier so it doesn't affect checkSpace?
+                            for (int previousIndex : previousCells) {
+                                System.out.println(previousIndex);
+                                CardView abandonedChild = (CardView) defenseGrid.getChildAt(previousIndex);
+                                abandonedChild.setBackgroundColor(Color.rgb(255, 255, 255));
+                                abandonedChild.setTag(R.id.SHIP_HERE, R.id.VACANT);
+                            }
+                        }
+                        ship.setTag(cells);
                     }
                 }
             });
         }
+    }
+    private boolean checkSpace(int startCell, int length, int orientationId, GridLayout defenseGrid) {
+        int childIncrement;
+        if (orientationId == R.id.horizontalButton) {
+            childIncrement = 1;
+        } else {
+            childIncrement = defenseGrid.getColumnCount();
+        }
+        int homeRow = (int) defenseGrid.getChildAt(startCell).getTag(R.id.MY_ROW);
+        for (int i = 0; i < length; i++) {
+            int currentCell = startCell + (i * childIncrement);
+            if (currentCell >= defenseGrid.getChildCount()
+                    || ((orientationId == R.id.horizontalButton)
+                        && ((int) defenseGrid.getChildAt(currentCell).getTag(R.id.MY_ROW) != homeRow))
+                    || (int) defenseGrid.getChildAt(currentCell).getTag(R.id.SHIP_HERE) != R.id.VACANT) {
+                return false;
+            }
+        }
+        return true;
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
