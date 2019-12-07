@@ -128,13 +128,6 @@ public class FullscreenActivity extends AppCompatActivity {
                 }
             });
         }
-        dummyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setupPhase = false;
-                startAttacking(offenseGrid);
-            }
-        });
         int columnCount = defenseGrid.getColumnCount();
         int thisRow = 0;
         int thisColumn = 0;
@@ -199,6 +192,18 @@ public class FullscreenActivity extends AppCompatActivity {
                             size = 2;
                             shipVal = R.id.SHIP_0;
                         }
+                        int[] previousCells;
+                        if (ship.getTag() == null) {
+                            previousCells = new int[0];
+                        } else {
+                            previousCells = (int[]) ship.getTag();
+                        }
+                        if (previousCells.length > 0) { //Allows spaces where the ship used to be to be used
+                            for (int previousIndex : previousCells) {
+                                CardView abandonedChild = (CardView) defenseGrid.getChildAt(previousIndex);
+                                abandonedChild.setTag(R.id.SHIP_HERE, R.id.GHOST_SHIP);
+                            }
+                        }
                         if (!checkSpace(k, size, orientationID, defenseGrid)) { //quit if you outta room
                             return;
                         }
@@ -215,21 +220,29 @@ public class FullscreenActivity extends AppCompatActivity {
                             defenseGrid.getChildAt(currentCellIndex).setBackgroundColor(color);
                             defenseGrid.getChildAt(currentCellIndex).setTag(R.id.SHIP_HERE, shipVal);
                         }
-                        int[] previousCells;
-                        if (ship.getTag() == null) {
-                            previousCells = new int[0];
-                        } else {
-                            previousCells = (int[]) ship.getTag();
-                        }
-                        if (previousCells.length > 0) { //Maybe find a way to take care of this earlier so it doesn't affect checkSpace?
+                        if (previousCells.length > 0) {
                             for (int previousIndex : previousCells) {
-                                System.out.println(previousIndex);
                                 CardView abandonedChild = (CardView) defenseGrid.getChildAt(previousIndex);
-                                abandonedChild.setBackgroundColor(Color.rgb(255, 255, 255));
-                                abandonedChild.setTag(R.id.SHIP_HERE, R.id.VACANT);
+                                if ((int) abandonedChild.getTag(R.id.SHIP_HERE) == R.id.GHOST_SHIP) { //Only change it if it's not reused
+                                    abandonedChild.setBackgroundColor(Color.rgb(255, 255, 255));
+                                    abandonedChild.setTag(R.id.SHIP_HERE, R.id.VACANT);
+                                }
                             }
                         }
                         ship.setTag(cells);
+                        if (findViewById(R.id.Ship0).getTag() != null && findViewById(R.id.Ship1).getTag() != null
+                                && findViewById(R.id.Ship2).getTag() != null && findViewById(R.id.Ship3).getTag() != null
+                                && findViewById(R.id.Ship4).getTag() != null) {
+                            Button dummyButton = findViewById(R.id.dummy_button);
+                            dummyButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    setupPhase = false;
+                                    final GridLayout offenseGrid = findViewById(R.id.offenseGrid);
+                                    startAttacking(offenseGrid);
+                                }
+                            });
+                        }
                     }
                 }
             });
@@ -248,7 +261,8 @@ public class FullscreenActivity extends AppCompatActivity {
             if (currentCell >= defenseGrid.getChildCount()
                     || ((orientationId == R.id.horizontalButton)
                         && ((int) defenseGrid.getChildAt(currentCell).getTag(R.id.MY_ROW) != homeRow))
-                    || (int) defenseGrid.getChildAt(currentCell).getTag(R.id.SHIP_HERE) != R.id.VACANT) {
+                    || !(((int) defenseGrid.getChildAt(currentCell).getTag(R.id.SHIP_HERE) == R.id.VACANT)
+                        || (int) defenseGrid.getChildAt(currentCell).getTag(R.id.SHIP_HERE) == R.id.GHOST_SHIP)) {
                 return false;
             }
         }
