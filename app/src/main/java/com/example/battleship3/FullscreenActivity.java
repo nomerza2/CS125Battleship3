@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 
 import androidx.gridlayout.widget.GridLayout;
-
+import java.util.Random;
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -141,6 +141,19 @@ public class FullscreenActivity extends AppCompatActivity {
                 thisRow++;
             }
         }
+        int columnCountO = defenseGrid.getColumnCount();
+        int thisRowO = 0;
+        int thisColumnO = 0;
+        for (int i = 0; i < offenseGrid.getChildCount(); i++) {
+            offenseGrid.getChildAt(i).setTag(R.id.SHIP_HERE, R.id.VACANT);
+            offenseGrid.getChildAt(i).setTag(R.id.MY_ROW, thisRowO);
+            offenseGrid.getChildAt(i).setTag(R.id.MY_COLUMN, thisColumnO);
+            thisColumnO++;
+            if (thisColumnO == columnCountO) {
+                thisColumnO = 0;
+                thisRowO++;
+            }
+        }
     }
 
     private void startAttacking(GridLayout offenseGrid) {
@@ -237,9 +250,11 @@ public class FullscreenActivity extends AppCompatActivity {
                             dummyButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
-                                    setupPhase = false;
-                                    final GridLayout offenseGrid = findViewById(R.id.offenseGrid);
-                                    startAttacking(offenseGrid);
+                                    if (setupPhase) {
+                                        setupPhase = false;
+                                        final GridLayout offenseGrid = findViewById(R.id.offenseGrid);
+                                        offenseSetUp(offenseGrid);
+                                    }
                                 }
                             });
                         }
@@ -248,6 +263,15 @@ public class FullscreenActivity extends AppCompatActivity {
             });
         }
     }
+
+    /**
+     *
+     * @param startCell
+     * @param length
+     * @param orientationId
+     * @param defenseGrid
+     * @return TRUE if their is space FALSE if their isn't.
+     */
     private boolean checkSpace(int startCell, int length, int orientationId, GridLayout defenseGrid) {
         int childIncrement;
         if (orientationId == R.id.horizontalButton) {
@@ -267,6 +291,33 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         }
         return true;
+    }
+    private void offenseSetUp(GridLayout offenseGrid) {
+        int totalCellCount = offenseGrid.getChildCount();
+        int[] sizes = new int[] {2, 3, 3, 4, 5};
+        int[] shipTags = new int[] {R.id.SHIP_0, R.id.SHIP_1, R.id.SHIP_2, R.id.SHIP_3, R.id.SHIP_4};
+        Random r = new Random();
+        for (int i = 0; i < 5; i++) {
+            int randomCell;
+            int orientationID;
+            int cellIteration;
+            do {
+                randomCell = r.nextInt(totalCellCount);
+                if (r.nextBoolean()) {
+                    orientationID = R.id.horizontalButton;
+                    cellIteration = 1;
+                } else {
+                    orientationID = R.id.verticalButton;
+                    cellIteration = offenseGrid.getColumnCount();
+                }
+            } while (!checkSpace(randomCell, sizes[i], orientationID, offenseGrid));
+            for (int j = 0; j < sizes[i]; j++) {
+                CardView currentChild = (CardView) offenseGrid.getChildAt(randomCell + (j * cellIteration));
+                currentChild.setBackgroundColor(Color.rgb(255, 255, 0));
+                currentChild.setTag(R.id.SHIP_HERE, shipTags[i]);
+            }
+        }
+        startAttacking(offenseGrid);
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
