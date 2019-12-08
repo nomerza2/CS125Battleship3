@@ -8,14 +8,20 @@ public class Battleship {
     private boolean alive;
     private boolean hit;
     private int id;
+    private int survivalListViewID;
 
-    public Battleship(int size, int id, String team) {
+    public Battleship(int size, int id, String team, int survivalListViewID) {
         this.size = size;
         this.health = size;
         this.id = id;
         this.team = team;
         this.alive = true;
         this.hit = false;
+        this.survivalListViewID = survivalListViewID;
+    }
+
+    public int getSurvivalListViewID() {
+        return survivalListViewID;
     }
 
     public int getId() {

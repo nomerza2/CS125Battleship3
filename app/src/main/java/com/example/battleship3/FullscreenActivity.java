@@ -13,6 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import androidx.gridlayout.widget.GridLayout;
 import java.util.Random;
@@ -121,16 +122,16 @@ public class FullscreenActivity extends AppCompatActivity {
         final GridLayout defenseGrid = findViewById(R.id.defenseGrid);
         Button[] ships = {(Button) findViewById(R.id.Ship0), (Button) findViewById(R.id.Ship1),
                 (Button) findViewById(R.id.Ship2), (Button) findViewById(R.id.Ship3), (Button) findViewById(R.id.Ship4)};
-        geoffFleet[0] = new Battleship(2, R.id.SHIP_0, "geoff");
-        geoffFleet[1] = new Battleship(3, R.id.SHIP_1, "geoff");
-        geoffFleet[2] = new Battleship(3, R.id.SHIP_2, "geoff");
-        geoffFleet[3] = new Battleship(4, R.id.SHIP_3, "geoff");
-        geoffFleet[4] = new Battleship(5, R.id.SHIP_4, "geoff");
-        userFleet[0] = new Battleship(2, R.id.SHIP_0, "user");
-        userFleet[1] = new Battleship(3, R.id.SHIP_1, "user");
-        userFleet[2] = new Battleship(3, R.id.SHIP_2, "user");
-        userFleet[3] = new Battleship(4, R.id.SHIP_3, "user");
-        userFleet[4] = new Battleship(5, R.id.SHIP_4, "user");
+        geoffFleet[0] = new Battleship(2, R.id.SHIP_0, "geoff", R.id.geoffPrarieLearn);
+        geoffFleet[1] = new Battleship(3, R.id.SHIP_1, "geoff", R.id.geoffCoders);
+        geoffFleet[2] = new Battleship(3, R.id.SHIP_2, "geoff", R.id.geoffFoelinger);
+        geoffFleet[3] = new Battleship(4, R.id.SHIP_3, "geoff", R.id.geoffCBTF);
+        geoffFleet[4] = new Battleship(5, R.id.SHIP_4, "geoff", R.id.geoffMP);
+        userFleet[0] = new Battleship(2, R.id.SHIP_0, "user", R.id.userPrarieLearn);
+        userFleet[1] = new Battleship(3, R.id.SHIP_1, "user", R.id.userCoders);
+        userFleet[2] = new Battleship(3, R.id.SHIP_2, "user", R.id.userFoelinger);
+        userFleet[3] = new Battleship(4, R.id.SHIP_3, "user", R.id.userCBTF);
+        userFleet[4] = new Battleship(5, R.id.SHIP_4, "user", R.id.userMP);
         for (final Button ship : ships) {
             ship.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -177,17 +178,25 @@ public class FullscreenActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     int shipPresent = (int) cell.getTag(R.id.SHIP_HERE);
                     if (shipPresent == R.id.VACANT) {
+                        //Miss sound here
                         cell.setBackgroundColor(Color.rgb(0,0,255));
                         cell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
                     } else {
+                        //Hit Sound Here
                         cell.setBackgroundColor(Color.rgb(255, 0,0));
                         cell.setTag(R.id.ATTACKED_HERE, R.id.HIT);
                         Battleship wounded = findShipByID(shipPresent, "geoff");
                         wounded.attacked();
-                        if (!wounded.isAlive()) { //This would be where to check if game has been won
+                        if (!wounded.isAlive()) { //Ship is sinking
                             for(int cell : wounded.getCells()) {
                                 offenseGrid.getChildAt(cell).setBackgroundColor(Color.rgb(0,0,0));
                             }
+                            findViewById(wounded.getSurvivalListViewID()).setVisibility(View.GONE);
+                        }
+                        if ((!geoffFleet[0].isAlive() && !geoffFleet[1].isAlive() //Game Over
+                                && !geoffFleet[2].isAlive() && !geoffFleet[3].isAlive()
+                                && !geoffFleet[4].isAlive())) {
+                            ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN");
                         }
                     }
                 }
