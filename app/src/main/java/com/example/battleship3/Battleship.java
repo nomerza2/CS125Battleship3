@@ -7,14 +7,23 @@ public class Battleship {
     private String team;
     private boolean alive;
     private boolean hit;
+    private int id;
 
-    public Battleship(int size, int[] cells, String team) {
+    public Battleship(int size, int id, String team) {
         this.size = size;
         this.health = size;
-        this.cells = cells;
+        this.id = id;
         this.team = team;
         this.alive = true;
         this.hit = false;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getSize() {

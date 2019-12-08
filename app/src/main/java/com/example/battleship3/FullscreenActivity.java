@@ -71,7 +71,8 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     };
     private boolean mVisible;
-    private Battleship[] fleet = new Battleship[5];
+    private Battleship[] geoffFleet = new Battleship[5];
+    private Battleship[] userFleet = new Battleship[5];
     private final Runnable mHideRunnable = new Runnable() {
         @Override
         public void run() {
@@ -120,6 +121,7 @@ public class FullscreenActivity extends AppCompatActivity {
         final GridLayout defenseGrid = findViewById(R.id.defenseGrid);
         Button[] ships = {(Button) findViewById(R.id.Ship0), (Button) findViewById(R.id.Ship1),
                 (Button) findViewById(R.id.Ship2), (Button) findViewById(R.id.Ship3), (Button) findViewById(R.id.Ship4)};
+
         for (final Button ship : ships) {
             ship.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -162,7 +164,12 @@ public class FullscreenActivity extends AppCompatActivity {
             cell.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    cell.setCardBackgroundColor(Color.BLACK);
+                    int shipPresent = (int) cell.getTag(R.id.SHIP_HERE);
+                    if (shipPresent == R.id.VACANT) {
+                        cell.setBackgroundColor(Color.BLACK);
+                    } else {
+                        cell.setBackgroundColor(Color.rgb(255, 0,0));
+                    }
                 }
             });
         }
