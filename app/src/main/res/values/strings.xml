@@ -13,4 +13,8 @@
     <item type="id" name="MY_ROW"/>
     <item type="id" name="MY_COLUMN"/>
     <item type="id" name="GHOST_SHIP"/>
+    <item type="id" name="ATTACKED_HERE"/>
+    <item type="id" name="HIT"/>
+    <item type="id" name="MISS"/>
+    <item type="id" name="OPEN"/>
 </resources>

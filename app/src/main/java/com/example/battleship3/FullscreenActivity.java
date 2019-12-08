@@ -121,7 +121,16 @@ public class FullscreenActivity extends AppCompatActivity {
         final GridLayout defenseGrid = findViewById(R.id.defenseGrid);
         Button[] ships = {(Button) findViewById(R.id.Ship0), (Button) findViewById(R.id.Ship1),
                 (Button) findViewById(R.id.Ship2), (Button) findViewById(R.id.Ship3), (Button) findViewById(R.id.Ship4)};
-
+        geoffFleet[0] = new Battleship(2, R.id.SHIP_0, "geoff");
+        geoffFleet[1] = new Battleship(3, R.id.SHIP_1, "geoff");
+        geoffFleet[2] = new Battleship(3, R.id.SHIP_2, "geoff");
+        geoffFleet[3] = new Battleship(4, R.id.SHIP_3, "geoff");
+        geoffFleet[4] = new Battleship(5, R.id.SHIP_4, "geoff");
+        userFleet[0] = new Battleship(2, R.id.SHIP_0, "user");
+        userFleet[1] = new Battleship(3, R.id.SHIP_1, "user");
+        userFleet[2] = new Battleship(3, R.id.SHIP_2, "user");
+        userFleet[3] = new Battleship(4, R.id.SHIP_3, "user");
+        userFleet[4] = new Battleship(5, R.id.SHIP_4, "user");
         for (final Button ship : ships) {
             ship.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -137,6 +146,7 @@ public class FullscreenActivity extends AppCompatActivity {
             defenseGrid.getChildAt(i).setTag(R.id.SHIP_HERE, R.id.VACANT);
             defenseGrid.getChildAt(i).setTag(R.id.MY_ROW, thisRow);
             defenseGrid.getChildAt(i).setTag(R.id.MY_COLUMN, thisColumn);
+            defenseGrid.getChildAt(i).setTag(R.id.ATTACKED_HERE, R.id.OPEN);
             thisColumn++;
             if (thisColumn == columnCount) {
                 thisColumn = 0;
@@ -150,6 +160,7 @@ public class FullscreenActivity extends AppCompatActivity {
             offenseGrid.getChildAt(i).setTag(R.id.SHIP_HERE, R.id.VACANT);
             offenseGrid.getChildAt(i).setTag(R.id.MY_ROW, thisRowO);
             offenseGrid.getChildAt(i).setTag(R.id.MY_COLUMN, thisColumnO);
+            offenseGrid.getChildAt(i).setTag(R.id.ATTACKED_HERE, R.id.OPEN);
             thisColumnO++;
             if (thisColumnO == columnCountO) {
                 thisColumnO = 0;
@@ -158,7 +169,7 @@ public class FullscreenActivity extends AppCompatActivity {
         }
     }
 
-    private void startAttacking(GridLayout offenseGrid) {
+    private void startAttacking(final GridLayout offenseGrid) {
         for (int i = 0; i < offenseGrid.getChildCount(); i++) {
             final CardView cell = (CardView) offenseGrid.getChildAt(i);
             cell.setOnClickListener(new View.OnClickListener() {
@@ -166,13 +177,36 @@ public class FullscreenActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     int shipPresent = (int) cell.getTag(R.id.SHIP_HERE);
                     if (shipPresent == R.id.VACANT) {
-                        cell.setBackgroundColor(Color.BLACK);
+                        cell.setBackgroundColor(Color.rgb(0,0,255));
+                        cell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
                     } else {
                         cell.setBackgroundColor(Color.rgb(255, 0,0));
+                        cell.setTag(R.id.ATTACKED_HERE, R.id.HIT);
+                        Battleship wounded = findShipByID(shipPresent, "geoff");
+                        wounded.attacked();
+                        if (!wounded.isAlive()) { //This would be where to check if game has been won
+                            for(int cell : wounded.getCells()) {
+                                offenseGrid.getChildAt(cell).setBackgroundColor(Color.rgb(0,0,0));
+                            }
+                        }
                     }
                 }
             });
         }
+    }
+    private Battleship findShipByID(int id, String team) {
+        Battleship[] fleet;
+        if (team.equals("geoff")) {
+            fleet = geoffFleet;
+        } else {
+            fleet = userFleet;
+        }
+        for (Battleship i : fleet) {
+            if (i.getId() == id) {
+                return i;
+            }
+        }
+        return fleet[0];
     }
     private void defenseSetUp(final Button ship, final GridLayout defenseGrid) {
         for (int i = 0; i < defenseGrid.getChildCount(); i++) {
@@ -191,26 +225,32 @@ public class FullscreenActivity extends AppCompatActivity {
                         int color;
                         int size;
                         int shipVal;
+                        int fleetIndex;
                         if (ship.equals(findViewById(R.id.Ship1))) {
                             color = Color.rgb(255, 0, 0);
                             size = 3;
                             shipVal = R.id.SHIP_1;
+                            fleetIndex = 1;
                         } else if (ship.equals(findViewById(R.id.Ship2))) {
                             color = Color.rgb(0, 255, 0);
                             size = 3;
                             shipVal = R.id.SHIP_2;
+                            fleetIndex = 2;
                         } else if (ship.equals(findViewById(R.id.Ship3))) {
                             color = Color.rgb(255, 0, 255);
                             size = 4;
                             shipVal = R.id.SHIP_3;
+                            fleetIndex = 3;
                         } else if (ship.equals(findViewById(R.id.Ship4))) {
                             color = Color.rgb(0, 255, 255);
                             size = 5;
                             shipVal = R.id.SHIP_4;
+                            fleetIndex = 4;
                         } else {
                             color = Color.rgb(0, 0, 255);
                             size = 2;
                             shipVal = R.id.SHIP_0;
+                            fleetIndex = 0;
                         }
                         int[] previousCells;
                         if (ship.getTag() == null) {
@@ -250,6 +290,7 @@ public class FullscreenActivity extends AppCompatActivity {
                             }
                         }
                         ship.setTag(cells);
+                        userFleet[fleetIndex].setCells(cells);
                         if (findViewById(R.id.Ship0).getTag() != null && findViewById(R.id.Ship1).getTag() != null
                                 && findViewById(R.id.Ship2).getTag() != null && findViewById(R.id.Ship3).getTag() != null
                                 && findViewById(R.id.Ship4).getTag() != null) {
@@ -301,13 +342,12 @@ public class FullscreenActivity extends AppCompatActivity {
     }
     private void offenseSetUp(GridLayout offenseGrid) {
         int totalCellCount = offenseGrid.getChildCount();
-        int[] sizes = new int[] {2, 3, 3, 4, 5};
-        int[] shipTags = new int[] {R.id.SHIP_0, R.id.SHIP_1, R.id.SHIP_2, R.id.SHIP_3, R.id.SHIP_4};
         Random r = new Random();
         for (int i = 0; i < 5; i++) {
             int randomCell;
             int orientationID;
             int cellIteration;
+            int[] cells = new int[geoffFleet[i].getSize()];
             do {
                 randomCell = r.nextInt(totalCellCount);
                 if (r.nextBoolean()) {
@@ -317,12 +357,14 @@ public class FullscreenActivity extends AppCompatActivity {
                     orientationID = R.id.verticalButton;
                     cellIteration = offenseGrid.getColumnCount();
                 }
-            } while (!checkSpace(randomCell, sizes[i], orientationID, offenseGrid));
-            for (int j = 0; j < sizes[i]; j++) {
-                CardView currentChild = (CardView) offenseGrid.getChildAt(randomCell + (j * cellIteration));
+            } while (!checkSpace(randomCell, geoffFleet[i].getSize(), orientationID, offenseGrid));
+            for (int j = 0; j < geoffFleet[i].getSize(); j++) {
+                cells[j] = randomCell + (j*cellIteration);
+                CardView currentChild = (CardView) offenseGrid.getChildAt(cells[j]);
                 currentChild.setBackgroundColor(Color.rgb(255, 255, 0));
-                currentChild.setTag(R.id.SHIP_HERE, shipTags[i]);
+                currentChild.setTag(R.id.SHIP_HERE, geoffFleet[i].getId());
             }
+            geoffFleet[i].setCells(cells);
         }
         startAttacking(offenseGrid);
     }

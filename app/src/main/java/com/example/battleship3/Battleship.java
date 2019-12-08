@@ -38,6 +38,10 @@ public class Battleship {
         return cells;
     }
 
+    public void setCells(int[] cells) {
+        this.cells = cells;
+    }
+
     public String getTeam() {
         return team;
     }
@@ -69,12 +73,11 @@ public class Battleship {
         }
         return false;
     }
-    public int attacked() { //RETURNS REMAINING HEALTH
+    public void attacked() {
         hit = true;
         health--;
         if (health <= 0) {
             alive = false;
         }
-        return health;
     }
 }
