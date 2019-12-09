@@ -426,7 +426,7 @@
                         android:id="@+id/geoffFoelinger"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Foelinger"
+                        android:text="Foellinger"
                         android:textSize="30sp" />
 
                     <TextView
@@ -468,7 +468,7 @@
                     android:id="@+id/Ship2"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
-                    android:text="Foelinger" />
+                    android:text="Foellinger" />
                 <Button
                     android:id="@+id/Ship3"
                     android:layout_width="137dp"
@@ -877,7 +877,7 @@
                         android:id="@+id/userFoelinger"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Foelinger"
+                        android:text="Foellinger"
                         android:textSize="30sp" />
 
                     <TextView
