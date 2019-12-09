@@ -15,6 +15,15 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
+import java.util.concurrent.TimeUnit;
+
 import androidx.gridlayout.widget.GridLayout;
 import java.util.Random;
 /**
@@ -80,6 +89,10 @@ public class FullscreenActivity extends AppCompatActivity {
             hide();
         }
     };
+
+    private SoundPool soundPool;
+    private int fireHit, fireMiss, gqShort, alarm, priceWrong, steamSiren;
+
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
      * system UI. This is to prevent the jarring behavior of controls going away
@@ -100,6 +113,28 @@ public class FullscreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fullscreen);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setUsage(AudioAttributes.USAGE_ASSISTANCE_SONIFICATION)
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .build();
+
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(4)
+                    .setAudioAttributes(audioAttributes)
+                    .build();
+
+        } else {
+            soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 0);
+        }
+
+        alarm = soundPool.load(this, R.raw.alarm,1);
+        fireHit = soundPool.load(this, R.raw.firehit, 1);
+        fireMiss = soundPool.load(this, R.raw.firemiss, 1);
+        gqShort = soundPool.load(this, R.raw.gqshort, 1);
+        priceWrong = soundPool.load(this, R.raw.pricewrong,1);
+        steamSiren = soundPool.load(this, R.raw.steamsiren,1);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -179,10 +214,14 @@ public class FullscreenActivity extends AppCompatActivity {
                     int shipPresent = (int) cell.getTag(R.id.SHIP_HERE);
                     if (shipPresent == R.id.VACANT) {
                         //Miss sound here
+                        soundPool.play(fireMiss, 1, 1, 0, 0, 1);
+
                         cell.setBackgroundColor(Color.rgb(0,0,255));
                         cell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
                     } else {
                         //Hit Sound Here
+                        soundPool.play(fireHit, 1, 1, 0, 0, 1);
+
                         cell.setBackgroundColor(Color.rgb(255, 0,0));
                         cell.setTag(R.id.ATTACKED_HERE, R.id.HIT);
                         Battleship wounded = findShipByID(shipPresent, "geoff");
@@ -197,6 +236,7 @@ public class FullscreenActivity extends AppCompatActivity {
                                 && !geoffFleet[2].isAlive() && !geoffFleet[3].isAlive()
                                 && !geoffFleet[4].isAlive())) {
                             ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN");
+                            soundPool.play(steamSiren, 1, 1, 0, 0, 1);
                         }
                     }
                 }
@@ -375,6 +415,7 @@ public class FullscreenActivity extends AppCompatActivity {
             }
             geoffFleet[i].setCells(cells);
         }
+        soundPool.play(gqShort, 1, 1, 0, 0, 1);
         startAttacking(offenseGrid);
     }
     @Override
@@ -429,4 +470,6 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+
+
 }
