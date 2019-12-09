@@ -456,29 +456,29 @@
                     android:id="@+id/Ship0"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
-                    android:text="Prarie Learn" />
+                    android:text="Prarie Learn 2" />
 
                 <Button
                     android:id="@+id/Ship1"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
-                    android:text="Coders" />
+                    android:text="Coders 3" />
 
                 <Button
                     android:id="@+id/Ship2"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
-                    android:text="Foellinger" />
+                    android:text="Foellinger 3" />
                 <Button
                     android:id="@+id/Ship3"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
-                    android:text="CBTF" />
+                    android:text="CBTF 4" />
                 <Button
                     android:id="@+id/Ship4"
                     android:layout_width="137dp"
                     android:layout_height="wrap_content"
-                    android:text="MP" />
+                    android:text="MP 5" />
 
                 <RadioGroup
                     android:id="@+id/orientationGroup"

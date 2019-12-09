@@ -23,6 +23,8 @@ import android.os.Build;
 
 import androidx.gridlayout.widget.GridLayout;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
@@ -88,7 +90,7 @@ public class FullscreenActivity extends AppCompatActivity {
     };
 
     private SoundPool soundPool;
-    private int fireHit, fireMiss, gqShort, alarm, priceWrong, steamSiren;
+    private int fireHit, fireMiss, gqShort, alarm, priceWrong, steamSiren, sonarPing;
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
@@ -132,6 +134,7 @@ public class FullscreenActivity extends AppCompatActivity {
         gqShort = soundPool.load(this, R.raw.gqshort, 1);
         priceWrong = soundPool.load(this, R.raw.pricewrong,1);
         steamSiren = soundPool.load(this, R.raw.steamsiren,1);
+        sonarPing = soundPool.load(this, R.raw.sonarping,1);
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -210,15 +213,18 @@ public class FullscreenActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     int shipPresent = (int) cell.getTag(R.id.SHIP_HERE);
                     if (shipPresent == R.id.VACANT) {
+
                         //Miss sound here
                         soundPool.play(fireMiss, 1, 1, 0, 0, 1);
+                        timeDelay(2);
+                        soundPool.play(sonarPing, 1, 1, 0, 0, 1);
 
                         cell.setBackgroundColor(Color.rgb(0,0,255));
                         cell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
                     } else {
                         //Hit Sound Here
                         soundPool.play(fireHit, 1, 1, 0, 0, 1);
-
+                        timeDelay(2);
                         cell.setBackgroundColor(Color.rgb(255, 0,0));
                         cell.setTag(R.id.ATTACKED_HERE, R.id.HIT);
                         Battleship wounded = findShipByID(shipPresent, "geoff");
@@ -232,7 +238,10 @@ public class FullscreenActivity extends AppCompatActivity {
                         if ((!geoffFleet[0].isAlive() && !geoffFleet[1].isAlive() //Game Over
                                 && !geoffFleet[2].isAlive() && !geoffFleet[3].isAlive()
                                 && !geoffFleet[4].isAlive())) {
+                            timeDelay(2);
                             ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN");
+                            soundPool.play(steamSiren, 1, 1, 0, 0, 1);
+                            timeDelay(2);
                             soundPool.play(steamSiren, 1, 1, 0, 0, 1);
                         }
                     }
@@ -468,5 +477,15 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
+    /**
+     * Timer in seconds for pause.
+     */
+    public void timeDelay(int delay) {
+        try {
+            TimeUnit.SECONDS.sleep(delay);
+        } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
+        }
+    }
 
 }
