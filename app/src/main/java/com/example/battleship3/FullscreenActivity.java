@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import android.content.Intent;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -137,7 +138,7 @@ public class FullscreenActivity extends AppCompatActivity {
         gqShort = soundPool.load(this, R.raw.gqshort, 1);
         priceWrong = soundPool.load(this, R.raw.pricewrong,1);
         steamSiren = soundPool.load(this, R.raw.steamsiren,1);
-        sonarPing = soundPool.load(this, R.raw.sonarping,1);*/
+        sonarPing = soundPool.load(this, R.raw.sonarping,1); */
         //COMMENTED OUT SOUNDPOOL VALUES SOUNDS HERE KEYWORD SOUND
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -160,6 +161,11 @@ public class FullscreenActivity extends AppCompatActivity {
         final GridLayout defenseGrid = findViewById(R.id.defenseGrid);
         Button[] ships = {(Button) findViewById(R.id.Ship0), (Button) findViewById(R.id.Ship1),
                 (Button) findViewById(R.id.Ship2), (Button) findViewById(R.id.Ship3), (Button) findViewById(R.id.Ship4)};
+        ships[0].setBackgroundColor(Color.rgb(255,255,0));
+        ships[1].setBackgroundColor(Color.rgb(126,84,41));
+        ships[2].setBackgroundColor(Color.rgb(0,255,0));
+        ships[3].setBackgroundColor(Color.rgb(255,0,255));
+        ships[4].setBackgroundColor(Color.rgb(0,255,255));
         geoffFleet[0] = new Battleship(2, R.id.SHIP_0, "geoff", R.id.geoffPrarieLearn);
         geoffFleet[1] = new Battleship(3, R.id.SHIP_1, "geoff", R.id.geoffCoders);
         geoffFleet[2] = new Battleship(3, R.id.SHIP_2, "geoff", R.id.geoffFoelinger);
@@ -208,6 +214,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 thisRowO++;
             }
         }
+        ((TextView) findViewById(R.id.Endgame)).setText("Place your ships in the bottom grid to begin");
     }
 
     private void startAttacking(final GridLayout offenseGrid, final GridLayout defenseGrid) {
@@ -220,16 +227,16 @@ public class FullscreenActivity extends AppCompatActivity {
                     if (shipPresent == R.id.VACANT) {
 
                         //Miss sound here
-                        /*soundPool.play(fireMiss, 1, 1, 0, 0, 1);
+                        soundPool.play(fireMiss, 1, 1, 0, 0, 1);
                         timeDelay(2);
-                        soundPool.play(sonarPing, 1, 1, 0, 0, 1);*/
+                        soundPool.play(sonarPing, 1, 1, 0, 0, 1);
 
                         cell.setBackgroundColor(Color.rgb(0,0,255));
                         cell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
                     } else {
                         //Hit Sound Here
-                        /*soundPool.play(fireHit, 1, 1, 0, 0, 1);
-                        timeDelay(2); */
+                        soundPool.play(fireHit, 1, 1, 0, 0, 1);
+                        timeDelay(2);
                         cell.setBackgroundColor(Color.rgb(255, 0,0));
                         cell.setTag(R.id.ATTACKED_HERE, R.id.HIT);
                         Battleship wounded = findShipByID(shipPresent, "geoff");
@@ -244,10 +251,21 @@ public class FullscreenActivity extends AppCompatActivity {
                                 && !geoffFleet[2].isAlive() && !geoffFleet[3].isAlive()
                                 && !geoffFleet[4].isAlive())) {
                             //timeDelay(2);
-                            ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN");
-                            /*soundPool.play(steamSiren, 1, 1, 0, 0, 1);
+                            ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN!");
+
+                            soundPool.play(steamSiren, 1, 1, 0, 0, 1);
                             timeDelay(2);
-                            soundPool.play(steamSiren, 1, 1, 0, 0, 1); */
+                            soundPool.play(steamSiren, 1, 1, 0, 0, 1);
+                            ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN! Click New Game to start another");
+                            Button dummyButton = (Button) findViewById(R.id.dummy_button);
+                            dummyButton.setText("New Game");
+                            dummyButton.setVisibility(View.VISIBLE);
+                            dummyButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    newGame();
+                                }
+                            });
                         }
                     }
                     counterAttack(defenseGrid);
@@ -255,23 +273,28 @@ public class FullscreenActivity extends AppCompatActivity {
             });
         }
     }
-    private void counterAttack (GridLayout defenseGrid) {
+    private void newGame() {
+        Intent intent = new Intent(this, SplashScreen.class);
+        startActivity(intent);
+        finish();
+    }
+    private void counterAttack(GridLayout defenseGrid) {
         int targetIndex = attackAI(defenseGrid);
         CardView targetCell = (CardView) defenseGrid.getChildAt(targetIndex);
         if(((int) targetCell.getTag(R.id.SHIP_HERE)) == R.id.VACANT) {
             //MISS
             //ADD SOUNDS HERE
             targetCell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
-            targetCell.setBackgroundColor(Color.rgb(0,0,0));
+            targetCell.setBackgroundColor(Color.rgb(0,0,255));
         } else {
             //HIT
-            targetCell.setBackgroundColor(Color.rgb(127,127,127));
+            targetCell.setBackgroundColor(Color.rgb(255,0,0));
             targetCell.setTag(R.id.ATTACKED_HERE, R.id.HIT);
             Battleship wounded = findShipByID((int) targetCell.getTag(R.id.SHIP_HERE), "user");
             wounded.attacked();
             if (!wounded.isAlive()) { //Ship is sinking
                 for(int cell : wounded.getCells()) {
-                    defenseGrid.getChildAt(cell).setBackgroundColor(Color.rgb(122,122,0)); //FIGURE OUT COLORS!!!
+                    defenseGrid.getChildAt(cell).setBackgroundColor(Color.rgb(0,0,0)); //FIGURE OUT COLORS!!!
                     defenseGrid.getChildAt(cell).setTag(R.id.ATTACKED_HERE, R.id.SUNK);
                 }
                 findViewById(wounded.getSurvivalListViewID()).setVisibility(View.GONE);
@@ -280,6 +303,15 @@ public class FullscreenActivity extends AppCompatActivity {
                     && !userFleet[2].isAlive() && !userFleet[3].isAlive()
                     && !userFleet[4].isAlive())) {
                 ((TextView) findViewById(R.id.Endgame)).setText("YOU LOSE");
+                Button dummyButton = findViewById(R.id.dummy_button);
+                ((TextView) findViewById(R.id.Endgame)).setText("YOU LOSE! Click New Game For Another!");
+                dummyButton.setText("New Game");
+                dummyButton.setVisibility(View.VISIBLE);
+                dummyButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        newGame();
+                    }
+                });
             }
         }
     }
@@ -416,7 +448,7 @@ public class FullscreenActivity extends AppCompatActivity {
                         int shipVal;
                         int fleetIndex;
                         if (ship.equals(findViewById(R.id.Ship1))) {
-                            color = Color.rgb(255, 0, 0);
+                            color = Color.rgb(126, 84, 41);
                             size = 3;
                             shipVal = R.id.SHIP_1;
                             fleetIndex = 1;
@@ -436,7 +468,7 @@ public class FullscreenActivity extends AppCompatActivity {
                             shipVal = R.id.SHIP_4;
                             fleetIndex = 4;
                         } else {
-                            color = Color.rgb(0, 0, 255);
+                            color = Color.rgb(255, 255, 0);
                             size = 2;
                             shipVal = R.id.SHIP_0;
                             fleetIndex = 0;
@@ -483,7 +515,8 @@ public class FullscreenActivity extends AppCompatActivity {
                         if (findViewById(R.id.Ship0).getTag() != null && findViewById(R.id.Ship1).getTag() != null
                                 && findViewById(R.id.Ship2).getTag() != null && findViewById(R.id.Ship3).getTag() != null
                                 && findViewById(R.id.Ship4).getTag() != null) {
-                            Button dummyButton = findViewById(R.id.dummy_button);
+                            final Button dummyButton = findViewById(R.id.dummy_button);
+                            ((TextView) findViewById(R.id.Endgame)).setText("Press Start Game to begin");
                             dummyButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -491,6 +524,8 @@ public class FullscreenActivity extends AppCompatActivity {
                                         setupPhase = false;
                                         final GridLayout offenseGrid = findViewById(R.id.offenseGrid);
                                         offenseSetUp(offenseGrid, defenseGrid);
+                                        dummyButton.setVisibility(View.INVISIBLE);
+                                        dummyButton.setText("");
                                     }
                                 }
                             });

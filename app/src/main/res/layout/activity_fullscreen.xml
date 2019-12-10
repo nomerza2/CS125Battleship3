@@ -35,17 +35,7 @@
             android:layout_gravity="bottom|center_horizontal"
             android:background="@color/black_overlay"
             android:orientation="horizontal"
-            tools:ignore="UselessParent">
-
-            <Button
-                android:id="@+id/dummy_button"
-                style="?metaButtonBarButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Start Game" />
-
-        </LinearLayout>
+            tools:ignore="UselessParent"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -400,6 +390,13 @@
                         android:layout_height="wrap_content"
                         android:text="GEOFF"
                         android:textSize="40sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/geoff" />
 
                     <TextView
                         android:id="@+id/textView3"
@@ -849,8 +846,15 @@
                         android:id="@+id/usertextView2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="USER"
+                        android:text="STUDENT"
                         android:textSize="40sp" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/cs125logo" />
 
                     <TextView
                         android:id="@+id/usertextView3"
@@ -893,8 +897,15 @@
                         android:layout_height="wrap_content"
                         android:text="MP"
                         android:textSize="30sp" />
+
                 </LinearLayout>
             </LinearLayout>
+
+            <Button
+                android:id="@+id/dummy_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="START GAME" />
 
             <TextView
                 android:id="@+id/Endgame"
