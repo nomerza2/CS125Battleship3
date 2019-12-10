@@ -157,6 +157,7 @@ public class FullscreenActivity extends AppCompatActivity {
         // while interacting with the UI.
         Button dummyButton = findViewById(R.id.dummy_button);
         dummyButton.setOnTouchListener(mDelayHideTouchListener);
+        Button dummyButton2 = findViewById(R.id.dummy_button);
         final GridLayout offenseGrid = findViewById(R.id.offenseGrid);
         final GridLayout defenseGrid = findViewById(R.id.defenseGrid);
         Button[] ships = {(Button) findViewById(R.id.Ship0), (Button) findViewById(R.id.Ship1),
@@ -259,7 +260,7 @@ public class FullscreenActivity extends AppCompatActivity {
                             ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN! Click New Game to start another");
                             Button dummyButton = (Button) findViewById(R.id.dummy_button);
                             dummyButton.setText("New Game");
-                            dummyButton.setVisibility(View.VISIBLE);
+                            //dummyButton.setVisibility(View.VISIBLE);
                             dummyButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
@@ -306,7 +307,7 @@ public class FullscreenActivity extends AppCompatActivity {
                 Button dummyButton = findViewById(R.id.dummy_button);
                 ((TextView) findViewById(R.id.Endgame)).setText("YOU LOSE! Click New Game For Another!");
                 dummyButton.setText("New Game");
-                dummyButton.setVisibility(View.VISIBLE);
+                //dummyButton.setVisibility(View.VISIBLE);
                 dummyButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View view) {
                         newGame();
@@ -524,7 +525,7 @@ public class FullscreenActivity extends AppCompatActivity {
                                         setupPhase = false;
                                         final GridLayout offenseGrid = findViewById(R.id.offenseGrid);
                                         offenseSetUp(offenseGrid, defenseGrid);
-                                        dummyButton.setVisibility(View.INVISIBLE);
+                                        //dummyButton.setVisibility(View.INVISIBLE);
                                         dummyButton.setText("");
                                     }
                                 }
