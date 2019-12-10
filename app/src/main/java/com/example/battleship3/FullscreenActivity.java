@@ -22,8 +22,12 @@ import android.os.Build;
 
 
 import androidx.gridlayout.widget.GridLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import android.content.Intent;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -138,7 +142,7 @@ public class FullscreenActivity extends AppCompatActivity {
         sonarPing = soundPool.load(this, R.raw.sonarping,1);
         splash2 = soundPool.load(this, R.raw.splash2,1);
         steamSiren = soundPool.load(this, R.raw.steamsiren,1);
-        
+
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
@@ -161,6 +165,11 @@ public class FullscreenActivity extends AppCompatActivity {
         final GridLayout defenseGrid = findViewById(R.id.defenseGrid);
         Button[] ships = {(Button) findViewById(R.id.Ship0), (Button) findViewById(R.id.Ship1),
                 (Button) findViewById(R.id.Ship2), (Button) findViewById(R.id.Ship3), (Button) findViewById(R.id.Ship4)};
+        ships[0].setBackgroundColor(Color.rgb(255,255,0));
+        ships[1].setBackgroundColor(Color.rgb(126,84,41));
+        ships[2].setBackgroundColor(Color.rgb(0,255,0));
+        ships[3].setBackgroundColor(Color.rgb(255,0,255));
+        ships[4].setBackgroundColor(Color.rgb(0,255,255));
         geoffFleet[0] = new Battleship(2, R.id.SHIP_0, "geoff", R.id.geoffPrarieLearn);
         geoffFleet[1] = new Battleship(3, R.id.SHIP_1, "geoff", R.id.geoffCoders);
         geoffFleet[2] = new Battleship(3, R.id.SHIP_2, "geoff", R.id.geoffFoelinger);
@@ -187,6 +196,7 @@ public class FullscreenActivity extends AppCompatActivity {
             defenseGrid.getChildAt(i).setTag(R.id.MY_ROW, thisRow);
             defenseGrid.getChildAt(i).setTag(R.id.MY_COLUMN, thisColumn);
             defenseGrid.getChildAt(i).setTag(R.id.ATTACKED_HERE, R.id.OPEN);
+            defenseGrid.getChildAt(i).setTag(R.id.MY_CELL, i);
             thisColumn++;
             if (thisColumn == columnCount) {
                 thisColumn = 0;
@@ -201,15 +211,17 @@ public class FullscreenActivity extends AppCompatActivity {
             offenseGrid.getChildAt(i).setTag(R.id.MY_ROW, thisRowO);
             offenseGrid.getChildAt(i).setTag(R.id.MY_COLUMN, thisColumnO);
             offenseGrid.getChildAt(i).setTag(R.id.ATTACKED_HERE, R.id.OPEN);
+            offenseGrid.getChildAt(i).setTag(R.id.MY_CELL, i);
             thisColumnO++;
             if (thisColumnO == columnCountO) {
                 thisColumnO = 0;
                 thisRowO++;
             }
         }
+        ((TextView) findViewById(R.id.Endgame)).setText("Place your ships in the bottom grid to begin");
     }
 
-    private void startAttacking(final GridLayout offenseGrid) {
+    private void startAttacking(final GridLayout offenseGrid, final GridLayout defenseGrid) {
         for (int i = 0; i < offenseGrid.getChildCount(); i++) {
             final CardView cell = (CardView) offenseGrid.getChildAt(i);
             cell.setOnClickListener(new View.OnClickListener() {
@@ -242,15 +254,169 @@ public class FullscreenActivity extends AppCompatActivity {
                         if ((!geoffFleet[0].isAlive() && !geoffFleet[1].isAlive() //Game Over
                                 && !geoffFleet[2].isAlive() && !geoffFleet[3].isAlive()
                                 && !geoffFleet[4].isAlive())) {
-                            timeDelay(2);
-                            ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN");
+                            //timeDelay(2);
+                            ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN!");
+
                             soundPool.play(steamSiren, 1, 1, 0, 0, 1);
                             timeDelay(2);
                             soundPool.play(steamSiren, 1, 1, 0, 0, 1);
+                            ((TextView) findViewById(R.id.Endgame)).setText("YOU WIN! Click New Game to start another");
+                            Button dummyButton = (Button) findViewById(R.id.dummy_button);
+                            dummyButton.setText("New Game");
+                            dummyButton.setVisibility(View.VISIBLE);
+                            dummyButton.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    newGame();
+                                }
+                            });
                         }
                     }
+                    counterAttack(defenseGrid);
                 }
             });
+        }
+    }
+    private void newGame() {
+        Intent intent = new Intent(this, SplashScreen.class);
+        startActivity(intent);
+        finish();
+    }
+    private void counterAttack(GridLayout defenseGrid) {
+        int targetIndex = attackAI(defenseGrid);
+        CardView targetCell = (CardView) defenseGrid.getChildAt(targetIndex);
+        if(((int) targetCell.getTag(R.id.SHIP_HERE)) == R.id.VACANT) {
+            //MISS
+            //ADD SOUNDS HERE
+            targetCell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
+            targetCell.setBackgroundColor(Color.rgb(0,0,255));
+        } else {
+            //HIT
+            targetCell.setBackgroundColor(Color.rgb(255,0,0));
+            targetCell.setTag(R.id.ATTACKED_HERE, R.id.HIT);
+            Battleship wounded = findShipByID((int) targetCell.getTag(R.id.SHIP_HERE), "user");
+            wounded.attacked();
+            if (!wounded.isAlive()) { //Ship is sinking
+                for(int cell : wounded.getCells()) {
+                    defenseGrid.getChildAt(cell).setBackgroundColor(Color.rgb(0,0,0)); //FIGURE OUT COLORS!!!
+                    defenseGrid.getChildAt(cell).setTag(R.id.ATTACKED_HERE, R.id.SUNK);
+                }
+                findViewById(wounded.getSurvivalListViewID()).setVisibility(View.GONE);
+            }
+            if ((!userFleet[0].isAlive() && !userFleet[1].isAlive() //Game Over
+                    && !userFleet[2].isAlive() && !userFleet[3].isAlive()
+                    && !userFleet[4].isAlive())) {
+                ((TextView) findViewById(R.id.Endgame)).setText("YOU LOSE");
+                Button dummyButton = findViewById(R.id.dummy_button);
+                ((TextView) findViewById(R.id.Endgame)).setText("YOU LOSE! Click New Game For Another!");
+                dummyButton.setText("New Game");
+                dummyButton.setVisibility(View.VISIBLE);
+                dummyButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View view) {
+                        newGame();
+                    }
+                });
+            }
+        }
+    }
+    // RETURNS the targetCell
+    private int attackAI (GridLayout defenseGrid) {
+        Random r = new Random();
+        List<Integer> hits = new ArrayList<>();
+        for (int i = 0; i < defenseGrid.getChildCount(); i++) {
+            if ((int) defenseGrid.getChildAt(i).getTag(R.id.ATTACKED_HERE) == R.id.HIT) {
+                hits.add(i);
+            }
+        }
+        if (hits.size() > 0) {
+            for (int i = 0; i < hits.size() - 1; i++) {
+                for (int j = i; j < hits.size(); j++) {
+                    int hitIndexA = hits.get(i);
+                    int hitIndexB = hits.get(j);
+                    if (checkAdjacency(defenseGrid, hitIndexA, hitIndexB)) {
+                        int iterationRelationship = Math.abs(hitIndexB - hitIndexA);
+                        boolean sameRowRelationShip = false;
+                        if (iterationRelationship == 1) {
+                            sameRowRelationShip = true;
+                        }
+                        if (hitIndexA > hitIndexB) {
+                            int temp = hitIndexB;
+                            hitIndexB = hitIndexA;
+                            hitIndexA = temp;
+                        }
+                        int analysisIndex = hitIndexA;
+                        //The lesser loop
+                        do {
+                            analysisIndex -= iterationRelationship;
+                            if (analysisIndex < 0
+                                    || (sameRowRelationShip
+                                        && defenseGrid.getChildAt(analysisIndex).getTag(R.id.MY_ROW)
+                                            != defenseGrid.getChildAt(hitIndexA).getTag(R.id.MY_ROW))) {
+                                break;
+                            }
+                            if((int) defenseGrid.getChildAt(analysisIndex).getTag(R.id.ATTACKED_HERE) == R.id.OPEN) {
+                                return analysisIndex;
+                            }
+                        } while((int) defenseGrid.getChildAt(analysisIndex).getTag(R.id.ATTACKED_HERE) == R.id.HIT);
+                        analysisIndex = hitIndexB;
+                        //The greater loop
+                        do {
+                            analysisIndex += iterationRelationship;
+                            if (analysisIndex >= defenseGrid.getChildCount()
+                                    || (sameRowRelationShip
+                                    && defenseGrid.getChildAt(analysisIndex).getTag(R.id.MY_ROW)
+                                    != defenseGrid.getChildAt(hitIndexA).getTag(R.id.MY_ROW))) {
+                                break;
+                            }
+                            if((int) defenseGrid.getChildAt(analysisIndex).getTag(R.id.ATTACKED_HERE) == R.id.OPEN) {
+                                return analysisIndex;
+                            }
+                        } while((int) defenseGrid.getChildAt(analysisIndex).getTag(R.id.ATTACKED_HERE) == R.id.HIT);
+                    } //CheckAdjacency close
+                }
+            }// Double for loop close
+            List<Integer> potentialHits = new ArrayList<>();
+            do {
+                int focusCellIndex = hits.get(r.nextInt(hits.size())); //Setup dowhile in case their are no opens
+                if (checkTargetNextToPreviousHitValidity(defenseGrid, focusCellIndex, focusCellIndex + 1, true)) {
+                    potentialHits.add(focusCellIndex + 1);
+                }
+                if (checkTargetNextToPreviousHitValidity(defenseGrid, focusCellIndex, focusCellIndex - 1, true)) {
+                    potentialHits.add(focusCellIndex - 1);
+                }
+                if (checkTargetNextToPreviousHitValidity(defenseGrid, focusCellIndex, focusCellIndex + defenseGrid.getColumnCount(), false)) {
+                    potentialHits.add(focusCellIndex + defenseGrid.getColumnCount());
+                }
+                if (checkTargetNextToPreviousHitValidity(defenseGrid, focusCellIndex, focusCellIndex - defenseGrid.getColumnCount(), false)) {
+                    potentialHits.add(focusCellIndex - defenseGrid.getColumnCount());
+                }
+            } while (potentialHits.size() == 0);
+            return potentialHits.get(r.nextInt(potentialHits.size()));
+        } else {// No hits at all - Full Random
+            int targetIndex;
+            do {
+                targetIndex = r.nextInt(defenseGrid.getChildCount());
+            } while ((int) defenseGrid.getChildAt(targetIndex).getTag(R.id.ATTACKED_HERE) != R.id.OPEN);
+            return targetIndex;
+        }
+    }
+    private boolean checkTargetNextToPreviousHitValidity(GridLayout defenseGrid, int previousHitIndex, int potentialIndex, boolean sameRow) {
+        if (potentialIndex >= defenseGrid.getChildCount() || potentialIndex < 0
+                || (sameRow && defenseGrid.getChildAt(previousHitIndex).getTag(R.id.MY_ROW) != defenseGrid.getChildAt(potentialIndex).getTag(R.id.MY_ROW))
+                || (int) defenseGrid.getChildAt(potentialIndex).getTag(R.id.ATTACKED_HERE) != R.id.OPEN) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    private boolean checkAdjacency(GridLayout defenseGrid, int indexA, int indexB) {
+        if ((defenseGrid.getChildAt(indexA).getTag(R.id.MY_ROW) == defenseGrid.getChildAt(indexB).getTag(R.id.MY_ROW)
+                && (indexA == indexB + 1 || indexA == indexB - 1))
+                || ((defenseGrid.getChildAt(indexA).getTag(R.id.MY_COLUMN) == defenseGrid.getChildAt(indexB).getTag(R.id.MY_COLUMN))
+                    && (indexA == indexB + defenseGrid.getColumnCount() || indexA == indexB - defenseGrid.getColumnCount()))) {
+            return true;
+        } else {
+            return false;
         }
     }
     private Battleship findShipByID(int id, String team) {
@@ -286,7 +452,7 @@ public class FullscreenActivity extends AppCompatActivity {
                         int shipVal;
                         int fleetIndex;
                         if (ship.equals(findViewById(R.id.Ship1))) {
-                            color = Color.rgb(255, 0, 0);
+                            color = Color.rgb(126, 84, 41);
                             size = 3;
                             shipVal = R.id.SHIP_1;
                             fleetIndex = 1;
@@ -306,7 +472,7 @@ public class FullscreenActivity extends AppCompatActivity {
                             shipVal = R.id.SHIP_4;
                             fleetIndex = 4;
                         } else {
-                            color = Color.rgb(0, 0, 255);
+                            color = Color.rgb(255, 255, 0);
                             size = 2;
                             shipVal = R.id.SHIP_0;
                             fleetIndex = 0;
@@ -353,14 +519,17 @@ public class FullscreenActivity extends AppCompatActivity {
                         if (findViewById(R.id.Ship0).getTag() != null && findViewById(R.id.Ship1).getTag() != null
                                 && findViewById(R.id.Ship2).getTag() != null && findViewById(R.id.Ship3).getTag() != null
                                 && findViewById(R.id.Ship4).getTag() != null) {
-                            Button dummyButton = findViewById(R.id.dummy_button);
+                            final Button dummyButton = findViewById(R.id.dummy_button);
+                            ((TextView) findViewById(R.id.Endgame)).setText("Press Start Game to begin");
                             dummyButton.setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View view) {
                                     if (setupPhase) {
                                         setupPhase = false;
                                         final GridLayout offenseGrid = findViewById(R.id.offenseGrid);
-                                        offenseSetUp(offenseGrid);
+                                        offenseSetUp(offenseGrid, defenseGrid);
+                                        dummyButton.setVisibility(View.INVISIBLE);
+                                        dummyButton.setText("");
                                     }
                                 }
                             });
@@ -399,7 +568,7 @@ public class FullscreenActivity extends AppCompatActivity {
         }
         return true;
     }
-    private void offenseSetUp(GridLayout offenseGrid) {
+    private void offenseSetUp(GridLayout offenseGrid, GridLayout defenseGrid) {
         int totalCellCount = offenseGrid.getChildCount();
         Random r = new Random();
         for (int i = 0; i < 5; i++) {
@@ -426,7 +595,7 @@ public class FullscreenActivity extends AppCompatActivity {
             geoffFleet[i].setCells(cells);
         }
         soundPool.play(gqShort, 1, 1, 0, 0, 1);
-        startAttacking(offenseGrid);
+        startAttacking(offenseGrid, defenseGrid);
     }
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
