@@ -247,6 +247,7 @@ public class FullscreenActivity extends AppCompatActivity {
                         Battleship wounded = findShipByID(shipPresent, "geoff");
                         wounded.attacked();
                         if (!wounded.isAlive()) { //Ship is sinking
+                            soundPool.play(splash2, 1, 1, 0, 0, 1);
                             for(int cell : wounded.getCells()) {
                                 offenseGrid.getChildAt(cell).setBackgroundColor(Color.rgb(0,0,0));
                             }
@@ -289,15 +290,21 @@ public class FullscreenActivity extends AppCompatActivity {
         if(((int) targetCell.getTag(R.id.SHIP_HERE)) == R.id.VACANT) {
             //MISS
             //ADD SOUNDS HERE
+            soundPool.play(fireMiss, 1, 1, 0, 0, 1);
+            timeDelay(2);
+            soundPool.play(sonarPing, 1, 1, 0, 0, 1);
             targetCell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
             targetCell.setBackgroundColor(Color.rgb(0,0,255));
         } else {
             //HIT
+            soundPool.play(fireHit, 1, 1, 0, 0, 1);
+            timeDelay(2);
             targetCell.setBackgroundColor(Color.rgb(255,0,0));
             targetCell.setTag(R.id.ATTACKED_HERE, R.id.HIT);
             Battleship wounded = findShipByID((int) targetCell.getTag(R.id.SHIP_HERE), "user");
             wounded.attacked();
             if (!wounded.isAlive()) { //Ship is sinking
+                soundPool.play(splash2, 1, 1, 0, 0, 1);
                 for(int cell : wounded.getCells()) {
                     defenseGrid.getChildAt(cell).setBackgroundColor(Color.rgb(0,0,0)); //FIGURE OUT COLORS!!!
                     defenseGrid.getChildAt(cell).setTag(R.id.ATTACKED_HERE, R.id.SUNK);
@@ -307,6 +314,7 @@ public class FullscreenActivity extends AppCompatActivity {
             if ((!userFleet[0].isAlive() && !userFleet[1].isAlive() //Game Over
                     && !userFleet[2].isAlive() && !userFleet[3].isAlive()
                     && !userFleet[4].isAlive())) {
+                soundPool.play(pacmandies, 1, 1, 0, 0, 1);
                 ((TextView) findViewById(R.id.Endgame)).setText("YOU LOSE");
                 Button dummyButton = findViewById(R.id.dummy_button);
                 ((TextView) findViewById(R.id.Endgame)).setText("YOU LOSE! Click New Game For Another!");
