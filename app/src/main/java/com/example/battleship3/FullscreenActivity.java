@@ -230,19 +230,19 @@ public class FullscreenActivity extends AppCompatActivity {
                 public void onClick(View view) {
                     int shipPresent = (int) cell.getTag(R.id.SHIP_HERE);
                     if (shipPresent == R.id.VACANT) {
-
                         //Miss sound here
+                        cell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
                         soundPool.play(fireMiss, 1, 1, 0, 0, 1);
                         timeDelay(2);
                         soundPool.play(sonarPing, 1, 1, 0, 0, 1);
-
                         cell.setBackgroundColor(Color.rgb(0,0,255));
-                        cell.setTag(R.id.ATTACKED_HERE, R.id.MISS);
+                        //timeDelay(5);
                     } else {
                         //Hit Sound Here
                         soundPool.play(fireHit, 1, 1, 0, 0, 1);
                         timeDelay(2);
                         cell.setBackgroundColor(Color.rgb(255, 0,0));
+                        //timeDelay(5);
                         cell.setTag(R.id.ATTACKED_HERE, R.id.HIT);
                         Battleship wounded = findShipByID(shipPresent, "geoff");
                         wounded.attacked();
@@ -274,6 +274,7 @@ public class FullscreenActivity extends AppCompatActivity {
                             });
                         }
                     }
+                    timeDelay(1);
                     counterAttack(defenseGrid);
                 }
             });
@@ -539,6 +540,7 @@ public class FullscreenActivity extends AppCompatActivity {
                                         offenseSetUp(offenseGrid, defenseGrid);
                                         //dummyButton.setVisibility(View.INVISIBLE);
                                         dummyButton.setText("");
+                                        ((TextView) findViewById(R.id.Endgame)).setText("Fight!");
                                     }
                                 }
                             });
@@ -598,7 +600,8 @@ public class FullscreenActivity extends AppCompatActivity {
             for (int j = 0; j < geoffFleet[i].getSize(); j++) {
                 cells[j] = randomCell + (j*cellIteration);
                 CardView currentChild = (CardView) offenseGrid.getChildAt(cells[j]);
-                currentChild.setBackgroundColor(Color.rgb(255, 255, 0));
+                //currentChild.setBackgroundColor(Color.rgb(255, 255, 0));
+                //MAKE GEOFF SHIPS YELLOW
                 currentChild.setTag(R.id.SHIP_HERE, geoffFleet[i].getId());
             }
             geoffFleet[i].setCells(cells);
