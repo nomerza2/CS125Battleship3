@@ -6,4 +6,11 @@
     <color name="colorDeepBlue">#011F4B</color>
     <color name="white">#ffffff</color>
     <color name="black_overlay">#66000000</color>
+
+    <color name="colorship0">#326ada</color>
+    <color name="colorship1">#d4d8d4</color>
+    <color name="colorship2">#433e90</color>
+    <color name="colorship3">#a19c9c</color>
+    <color name="colorship4">#d2d2d2</color>
+
 </resources>

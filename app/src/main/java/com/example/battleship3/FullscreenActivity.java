@@ -166,11 +166,12 @@ public class FullscreenActivity extends AppCompatActivity {
         final GridLayout defenseGrid = findViewById(R.id.defenseGrid);
         Button[] ships = {(Button) findViewById(R.id.Ship0), (Button) findViewById(R.id.Ship1),
                 (Button) findViewById(R.id.Ship2), (Button) findViewById(R.id.Ship3), (Button) findViewById(R.id.Ship4)};
-        ships[0].setBackgroundColor(Color.rgb(255,255,0));
-        ships[1].setBackgroundColor(Color.rgb(126,84,41));
-        ships[2].setBackgroundColor(Color.rgb(0,255,0));
-        ships[3].setBackgroundColor(Color.rgb(255,0,255));
-        ships[4].setBackgroundColor(Color.rgb(0,255,255));
+        ships[0].setBackgroundColor(Color.parseColor("#326ada"));
+        ships[1].setBackgroundColor(Color.parseColor("#d4d8d4"));
+        ships[2].setBackgroundColor(Color.parseColor("#433e90"));
+        ships[3].setBackgroundColor(Color.parseColor("#a19c9c"));
+        ships[4].setBackgroundColor(Color.parseColor("#d2d2d2"));
+
         geoffFleet[0] = new Battleship(2, R.id.SHIP_0, "geoff", R.id.geoffPrarieLearn);
         geoffFleet[1] = new Battleship(3, R.id.SHIP_1, "geoff", R.id.geoffCoders);
         geoffFleet[2] = new Battleship(3, R.id.SHIP_2, "geoff", R.id.geoffFoelinger);
@@ -462,27 +463,27 @@ public class FullscreenActivity extends AppCompatActivity {
                         int shipVal;
                         int fleetIndex;
                         if (ship.equals(findViewById(R.id.Ship1))) {
-                            color = Color.rgb(126, 84, 41);
+                            color = Color.parseColor("#d4d8d4");
                             size = 3;
                             shipVal = R.id.SHIP_1;
                             fleetIndex = 1;
                         } else if (ship.equals(findViewById(R.id.Ship2))) {
-                            color = Color.rgb(0, 255, 0);
+                            color = Color.parseColor("#433e90");
                             size = 3;
                             shipVal = R.id.SHIP_2;
                             fleetIndex = 2;
                         } else if (ship.equals(findViewById(R.id.Ship3))) {
-                            color = Color.rgb(255, 0, 255);
+                            color = Color.parseColor("#a19c9c");
                             size = 4;
                             shipVal = R.id.SHIP_3;
                             fleetIndex = 3;
                         } else if (ship.equals(findViewById(R.id.Ship4))) {
-                            color = Color.rgb(0, 255, 255);
+                            color = Color.parseColor("#d2d2d2");
                             size = 5;
                             shipVal = R.id.SHIP_4;
                             fleetIndex = 4;
                         } else {
-                            color = Color.rgb(255, 255, 0);
+                            color = Color.parseColor("#326ada");
                             size = 2;
                             shipVal = R.id.SHIP_0;
                             fleetIndex = 0;
