@@ -90,7 +90,8 @@ public class FullscreenActivity extends AppCompatActivity {
     };
 
     private SoundPool soundPool;
-    private int fireHit, fireMiss, gqShort, alarm, priceWrong, steamSiren, sonarPing;
+    private int fireHit, fireMiss, gqShort, alarm, pacmandies, steamSiren, sonarPing, splash2,
+    gameover;
 
     /**
      * Touch listener to use for in-layout UI controls to delay hiding the
@@ -131,10 +132,13 @@ public class FullscreenActivity extends AppCompatActivity {
         alarm = soundPool.load(this, R.raw.alarm,1);
         fireHit = soundPool.load(this, R.raw.firehit, 1);
         fireMiss = soundPool.load(this, R.raw.firemiss, 1);
+        gameover = soundPool.load(this, R.raw.gameover, 1);
         gqShort = soundPool.load(this, R.raw.gqshort, 1);
-        priceWrong = soundPool.load(this, R.raw.pricewrong,1);
-        steamSiren = soundPool.load(this, R.raw.steamsiren,1);
+        pacmandies = soundPool.load(this, R.raw.pacmandies,1);
         sonarPing = soundPool.load(this, R.raw.sonarping,1);
+        splash2 = soundPool.load(this, R.raw.splash2,1);
+        steamSiren = soundPool.load(this, R.raw.steamsiren,1);
+        
 
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
